@@ -1,0 +1,27 @@
+*.ignore.*
+*.pex
+*.wem
+*.fuz
+*.seq
+!Data/SEQ/{{project_name}}.seq
+*.esm
+*_AF.esp
+*.esl
+*.ba2
+*.bsa
+*.dat
+*.ilstrings
+*.dlstrings
+*.strings
+__pycache__
+*Edit Backups
+*Edit Cache
+build
+output
+meta.ini
+Backup
+Release
+ModInfo.psc
+info.xml
+po3_StartOnSave.ini
+debug

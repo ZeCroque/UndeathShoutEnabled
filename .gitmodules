@@ -1,0 +1,3 @@
+[submodule "CIScripts"]
+	path = CIScripts
+	url = https://github.com/ZeCroque/BGSModPackagingScripts.git

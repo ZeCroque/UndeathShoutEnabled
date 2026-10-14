@@ -1,0 +1,108 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Papyrus Compile",
+            "type": "process",
+            "command": "H:/Games/steamapps/common/Skyrim Special Edition/Papyrus Compiler/PapyrusCompiler.exe",
+            "args": 
+            [
+                "Data\\Source\\Scripts",
+"-i=Data\\Source\\Scripts;H:/Games/steamapps/common/Skyrim Special Edition/Data/Source/Scripts",
+"-o=Data\\Scripts",
+"-f=TESV_Papyrus_Flags.flg",
+"-all"
+            ],
+            "problemMatcher": {
+                "owner": "external",
+                "fileLocation": "absolute",
+                "pattern": {
+                  "regexp": "^(.*)\\((\\d+),(\\d+)\\):(.*)",
+                  "file": 1,
+                  "line": 2,
+                  "column": 3,
+                  "message": 4,
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Papyrus Compile (Release)",
+            "type": "process",
+            "command": "H:/Games/steamapps/common/Skyrim Special Edition/Papyrus Compiler/PapyrusCompiler.exe",
+            "args": 
+            [
+                "Data\\Source\\Scripts",
+"-i=Data\\Source\\Scripts;H:/Games/steamapps/common/Skyrim Special Edition/Data/Source/Scripts",
+"-o=Data\\Scripts",
+"-f=TESV_Papyrus_Flags.flg",
+"-all",
+"-optimize"
+            ],
+            "problemMatcher": {
+                "owner": "external",
+                "fileLocation": "absolute",
+                "pattern": {
+                  "regexp": "^(.*)\\((\\d+),(\\d+)\\):(.*)",
+                  "file": 1,
+                  "line": 2,
+                  "column": 3,
+                  "message": 4,
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Package",
+            "type": "process",
+            "command": "py",
+            "args": ["-3", "./build.py"],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Format readme",
+            "type": "process",
+            "command": "py",
+            "args": ["-3", "./CIScripts/readme_formatter.py"],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Add Strings to achlist",
+            "type": "process",
+            "command": "py",
+            "args": ["-3", "./CIScripts/achlist.py"],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+        ,{
+  "label": "Generate SEQ",
+  "type": "process",
+  "command": "py",
+  "args": ["-3", "./CIScripts/seq.py"],
+  "problemMatcher": [],
+  "group": {
+      "kind": "build",
+      "isDefault": true
+  }
+}
+    ]
+}

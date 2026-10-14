@@ -1,0 +1,102 @@
+# UndeathShoutEnabled
+
+## Index:
+
+1. Overview
+2. Details
+3. Frequently Asked Questions
+4. Known Issues
+5. Mod content
+6. Installation
+7. Compatibility
+8. My other mods
+9. Recommended Mods
+10. Credits
+11. Tools used
+12. Licensing/Legal 
+13. Feedback
+
+## 1. OVERVIEW
+
+_template_
+
+## 2. DETAILS
+
+_template_
+
+### Supported languages
+
+The mod is available in the following languages:
+- English
+- French
+
+## 3. FREQUENTLY ASKED QUESTIONS
+
+_template_
+
+## 4. KNOWN ISSUES
+
+None. Please let me know if you find any.
+
+## 5. MOD CONTENT
+
+This mod consists of two main files : 
+- *UndeathShoutEnabled.esm* (_template_ master)
+- *UndeathShoutEnabled - Main.bsa*
+
+## 6. INSTALLATION
+
+**Automatic (Recommended)**
+- Use the Mod Manager Download button. Install and enable the file(s) in your favorite mod manager (ModOrganizer2 is my personal preference).
+
+**Manual**
+- Extract the required files (cf. `5. MOD CONTENT`) from the archive to your Data folder and activate them in the in-game Creations menu.
+
+## 7. COMPATIBILITY
+
+No known incompatibility. Please let me know if you find any.
+
+## 8. MY OTHER MODS
+
+## 9. RECOMMENDED MODS
+
+_template_
+
+## 10. CREDITS
+
+- Thanks to Bethesda Softworks for this great game
+- Thanks to the authors of the tools listed below
+- Thanks to xtcrefugee for answering my questions about mid/small masters on the Starfield Modding Discord
+
+## 11. TOOLS USED
+
+- Creation Kit
+- xEdit
+- Visual Studio Code
+- xTranslator
+- Bethesda Archive Extractor
+- Champollion
+- Gimp & Photopea
+- Copier
+
+## 12. LICENSING/LEGAL
+
+If you want to modify and/or redistribute this mod, I would like to be contacted first please. Note that it is under GPL3 licensing, thus you have the obligation to make any modification done to the original source code available somewhere publicly.
+
+You can find the source code [here](https://github.com/ZeCroque/UndeathShoutEnabled).
+
+## 13. FEEDBACK
+
+*Found a bug or have an idea for new features? Let me know in NexusMods' comment section or on my [Discord server](https://discord.gg/K9Jk4y2tjJ)!*
+
+**Planned features:**
+_template_
+CREATIONS_FOOTER
+. FEEDBACK & MORE
+
+Found a bug or have an idea for new features? Needs more info? Go to my Discord server!
+Discord: https://discord.gg/K9Jk4y2tjJ 
+
+Want to know more about me and my other projects? Check my links!
+LinkTree: https://linktr.ee/zecroque
+CREATIONS_FOOTER_END
