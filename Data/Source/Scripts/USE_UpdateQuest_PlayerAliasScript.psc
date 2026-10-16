@@ -98,21 +98,26 @@ EndEvent
 
 Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
     Debug.Trace("USE_Equipped" + akBaseObject)
-    Shout tmp = akBaseObject as Shout
-    If(tmp)
-        equippedShout = tmp
-        RegisterForKey(Input.GetMappedKey("Shout", 0x0))
-        RegisterForKey(Input.GetMappedKey("Shout", 0x2))
-        Game.GetPlayer().UnequipShout(equippedShout)
+    If(akBaseObject == Game.GetPlayer().GetEquippedObject(2))
+        Shout tmp = akBaseObject as Shout
+        If(tmp)
+            equippedShout = tmp
+            RegisterForKey(Input.GetMappedKey("Shout", 0x0))
+            RegisterForKey(Input.GetMappedKey("Shout", 0x2))
+            Game.GetPlayer().UnequipShout(equippedShout)
+        Else
+            UnregisterForAllKeys()
+        EndIf
     EndIf
 EndEvent
 
 Event OnKeyDown(int keyCode)
-    If(!IsShouting)
+    If(!Utility.IsInMenuMode() && !IsShouting)
         Actor playerRef = Game.GetPlayer()
 
         If(!playerRef.GetVoiceRecoveryTime())
             IsShouting = True
+            playerRef.InterruptCast()
             LeftHandEquipment = playerRef.GetEquippedObject(0)
             RightHandEquipment = playerRef.GetEquippedObject(1)
             playerRef.AddSpell(USE_LichFormTriggerShoutSpell, False)
