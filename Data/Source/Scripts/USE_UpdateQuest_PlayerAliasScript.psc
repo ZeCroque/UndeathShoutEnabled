@@ -112,7 +112,7 @@ Event OnUpdate()
 EndEvent
 
 Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
-    If(Game.GetPlayer().GetRace() == NecroLichRace)
+    If(CustomAttackKeyboardShortcut != -1 && Game.GetPlayer().GetRace() == NecroLichRace)
         If(akBaseObject == Game.GetPlayer().GetEquippedObject(2))
             Shout tmp = akBaseObject as Shout
             If(tmp)
