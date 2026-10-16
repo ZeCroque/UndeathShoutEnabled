@@ -43,7 +43,8 @@ Function StopShouting()
     Else
         playerRef.EquipItemEx(RightHandEquipment, 1, False, False)
     EndIf
-
+    playerRef.RemoveSpell(USE_LichFormTriggerShoutSpell)
+    
     IsShouting = False
 EndFunction
 
@@ -114,6 +115,7 @@ Event OnKeyDown(int keyCode)
             IsShouting = True
             LeftHandEquipment = playerRef.GetEquippedObject(0)
             RightHandEquipment = playerRef.GetEquippedObject(1)
+            playerRef.AddSpell(USE_LichFormTriggerShoutSpell, False)
             playerRef.EquipSpell(USE_LichFormTriggerShoutSpell , 0)
             Input.HoldKey(CustomAttackKeyboardShortcut)
         Else
