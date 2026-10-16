@@ -1,6 +1,15 @@
 Scriptname USE_UpdateQuest_PlayerAliasScript extends ReferenceAlias
 
+Race Property NecroLichRace Auto
+
+Spell Property LichTransform Auto
+Keyword Property WeapTypeStaff Auto
+Int[] Property HotkeyCode Auto
+Form[] Property HotkeyedObjects Auto
+
 Int Property CustomAttackKeyboardShortcut Auto
+Int Property ShoutKeyCode Auto
+Int Property ShoutControllerCode Auto
 Spell Property USE_LichFormTriggerShoutSpell Auto
 Form Property LeftHandEquipment Auto
 Form Property RightHandEquipment Auto
@@ -49,7 +58,6 @@ Function StopShouting()
 EndFunction
 
 Event OnAnimationEvent(ObjectReference akSource, string asEventName)  
-    Debug.Trace(asEventName)
     If(Game.GetPlayer().GetEquippedObject(0) == USE_LichFormTriggerShoutSpell)  
         If(asEventName == "BeginCastLeft")      
             ShoutingTime = 0.0
@@ -88,8 +96,15 @@ Event OnSpellCast(Form akSpell)
             StopShouting()
         EndIf
         UnregisterForUpdate()
+    ElseIf(LichTransform)
+        Int i = 0
+        While(i < HotkeyedObjects.Length)
+            HotkeyedObjects[i] = Game.GetHotkeyBoundObject(i)
+            HotkeyCode[i] = Input.GetMappedKey("Hotkey" + (i + 1))
+            RegisterForKey(HotkeyCode[i])
+            i += 1
+        EndWhile
     EndIf
-    Debug.Trace("USE_OnSpellStart")
 EndEvent
 
 Event OnUpdate()
@@ -97,34 +112,71 @@ Event OnUpdate()
 EndEvent
 
 Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
-    Debug.Trace("USE_Equipped" + akBaseObject)
-    If(akBaseObject == Game.GetPlayer().GetEquippedObject(2))
-        Shout tmp = akBaseObject as Shout
-        If(tmp)
-            equippedShout = tmp
-            RegisterForKey(Input.GetMappedKey("Shout", 0x0))
-            RegisterForKey(Input.GetMappedKey("Shout", 0x2))
-            Game.GetPlayer().UnequipShout(equippedShout)
-        Else
-            UnregisterForAllKeys()
+    If(Game.GetPlayer().GetRace() == NecroLichRace)
+        If(akBaseObject == Game.GetPlayer().GetEquippedObject(2))
+            Shout tmp = akBaseObject as Shout
+            If(tmp)
+                equippedShout = tmp
+                ShoutKeyCode = Input.GetMappedKey("Shout", 0x0)
+                RegisterForKey(ShoutKeyCode)
+                ShoutControllerCode = Input.GetMappedKey("Shout", 0x2)
+                RegisterForKey(ShoutControllerCode)
+                Game.GetPlayer().UnequipShout(equippedShout)
+            Else
+                UnregisterForKey(ShoutKeyCode)
+                UnregisterForKey(ShoutControllerCode)
+            EndIf
         EndIf
+    Else
+        UnregisterForKey(ShoutKeyCode)
+        UnregisterForKey(ShoutControllerCode)
     EndIf
 EndEvent
 
-Event OnKeyDown(int keyCode)
-    If(!Utility.IsInMenuMode() && !IsShouting)
-        Actor playerRef = Game.GetPlayer()
-
-        If(!playerRef.GetVoiceRecoveryTime())
-            IsShouting = True
-            playerRef.InterruptCast()
-            LeftHandEquipment = playerRef.GetEquippedObject(0)
-            RightHandEquipment = playerRef.GetEquippedObject(1)
-            playerRef.AddSpell(USE_LichFormTriggerShoutSpell, False)
-            playerRef.EquipSpell(USE_LichFormTriggerShoutSpell , 0)
-            Input.HoldKey(CustomAttackKeyboardShortcut)
+Event OnKeyDown(int keyCode)          
+    Actor playerRef = Game.GetPlayer()
+    If(playerRef.GetRace() == NecroLichRace)
+        If((keyCode == ShoutKeyCode || keyCode == ShoutControllerCode) && !IsShouting)
+            If(!Utility.IsInMenuMode() && !playerRef.GetVoiceRecoveryTime())
+                IsShouting = True
+                playerRef.InterruptCast()
+                LeftHandEquipment = playerRef.GetEquippedObject(0)
+                RightHandEquipment = playerRef.GetEquippedObject(1)
+                playerRef.AddSpell(USE_LichFormTriggerShoutSpell, False)
+                playerRef.EquipSpell(USE_LichFormTriggerShoutSpell , 0)
+                Input.HoldKey(CustomAttackKeyboardShortcut)
+            Else
+                Debug.Notification("Your Thu'um is recovering.")
+            EndIf
         Else
-            Debug.Notification("Your Thu'um is recovering.")
+            Int i = 0
+            While(i < HotkeyedObjects.Length)
+                If(keyCode == HotkeyCode[i])
+                    If(!Utility.IsInMenuMode())
+                        If(HotkeyedObjects[i].HasKeyword(WeapTypeStaff))
+                            playerRef.EquipItemEx(HotkeyedObjects[i], 1, False, False)
+                        Else
+                            Spell spellToEquip = HotkeyedObjects[i] as Spell
+                            If(spellToEquip)
+                                If(playerRef.GetEquippedObject(0) == spellToEquip)
+                                    playerRef.EquipSpell(spellToEquip, 1)
+                                Else
+                                    playerRef.EquipSpell(spellToEquip, 0)
+                                EndIf
+                            Else
+                                Shout shoutToEquip = HotkeyedObjects[i] as Shout
+                                If(shoutToEquip)
+                                    playerRef.EquipShout(shoutToEquip)
+                                EndIf
+                            EndIf
+                        EndIf
+                    Else
+                        HotkeyedObjects[i] = Game.GetHotkeyBoundObject(i)
+                    EndIf
+                    i = HotkeyedObjects.Length
+                EndIf
+                i += 1
+            EndWhile
         EndIf
     EndIf
 EndEvent
