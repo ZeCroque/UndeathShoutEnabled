@@ -1,0 +1,7 @@
+Scriptname USE_Shout_MiscObjectScript extends MiscObject
+
+Shout Property TargetShout Auto
+MiscObject Property StartShortWordMisc Auto
+MiscObject Property StartLongWordMisc Auto
+MiscObject Property EndShortWordMisc Auto
+MiscObject Property EndLongWordMisc Auto

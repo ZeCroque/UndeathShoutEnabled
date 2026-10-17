@@ -10,7 +10,7 @@
             "args": 
             [
                 "Data\\Source\\Scripts",
-"-i=Data\\Source\\Scripts;H:/Games/steamapps/common/Skyrim Special Edition/Data/Source/Scripts",
+"-i=Data\\Source\\Scripts;H:/Games/steamapps/common/Skyrim Special Edition/Data/Source/Scripts;H:/ModOrganizer/SkyrimAE/mods/Undeath - Classical Lichdom v4/Source/Scripts",
 "-o=Data\\Scripts",
 "-f=TESV_Papyrus_Flags.flg",
 "-all"

@@ -15,15 +15,55 @@ Form Property LeftHandEquipment Auto
 Form Property RightHandEquipment Auto
 Shout Property equippedShout Auto
 Bool Property IsShouting Auto
+Bool Property FirstShoutWordPlayed Auto
 Float Property ShoutingTime Auto
+Float Property SecondWordThreshold Auto
+Float Property ThirdWordThreshold Auto
+FormList Property USE_ShoutMiscList Auto
+USE_Shout_MiscObjectScript Property EquippedShoutMisc Auto 
+Race Property ArgonianRace Auto
+Race Property DarkElfRace Auto
+Race Property HighElfRace Auto
+Race Property WoodElfRace Auto
+Race Property ImperialRace Auto
+Race Property NordRace Auto
+Race Property RedguardRace Auto
+Race Property BretonRace Auto
+Race Property KhajiitRace Auto
+Race Property OrcRace Auto
+Quest Property NecroLichRitualQuest Auto
+Int Property PlayerVoiceIndex Auto
+
+Int Function GetWordVoiceIndex()
+    Int voiceIndex = -1
+    Race playerRace = (NecroLichRitualQuest as NecroLichTrackingQuest).PlayerOriginalRace
+    If(playerRace == ArgonianRace)
+        voiceIndex = 0
+    ElseIf(playerRace == DarkElfRace || playerRace == HighElfRace || playerRace == WoodElfRace)
+        voiceIndex = 1
+    ElseIf(playerRace == ImperialRace || playerRace == NordRace || playerRace == RedguardRace || playerRace == BretonRace)
+        voiceIndex = 2
+    ElseIf(playerRace == KhajiitRace)
+        voiceIndex = 3
+    ElseIf(playerRace == OrcRace)
+        voiceIndex = 4
+    EndIf
+
+    If(Game.GetPlayer().GetActorBase().GetSex() == 1)
+        voiceIndex += 5
+    EndIf
+    Return voiceIndex
+EndFunction
 
 Event OnInit()
     RegisterAnims()
+    PlayerVoiceIndex = GetWordVoiceIndex()
 EndEvent
 
 Event OnPlayerLoadGame()
     (GetOwningQuest() as USE_UpdateQuest_UpdateQuestScript).Update()
     RegisterAnims()
+    PlayerVoiceIndex = GetWordVoiceIndex()
 EndEvent
 
 Function RegisterAnims()
@@ -61,7 +101,7 @@ Event OnAnimationEvent(ObjectReference akSource, string asEventName)
     If(Game.GetPlayer().GetEquippedObject(0) == USE_LichFormTriggerShoutSpell)  
         If(asEventName == "BeginCastLeft")      
             ShoutingTime = 0.0
-            RegisterForUpdate(0.5)
+            RegisterForUpdate(0.25)
         ElseIf("InterruptCast")
             UnregisterForUpdate()
             StopShouting()
@@ -74,19 +114,21 @@ Event OnSpellCast(Form akSpell)
         If(equippedShout)        
             Actor playerRef = Game.GetPlayer()
 
+            IsShouting = False
             Int shoutIndex = 0
-            If(ShoutingTime <= 0.5)
-                Debug.Notification("word1")
-            ElseIf(ShoutingTime <= 1.5)
-                Debug.Notification("word2")
+            If(ShoutingTime < SecondWordThreshold)
+                (EquippedShoutMisc.StartShortWordMisc as USE_Word_MiscObjectScript).WordSounds[PlayerVoiceIndex].Play(playerRef)
+            ElseIf(ShoutingTime < ThirdWordThreshold)
                 If(Game.IsWordUnlocked(equippedShout.GetNthWordOfPower(1)))
+                    (EquippedShoutMisc.EndShortWordMisc as USE_Word_MiscObjectScript).WordSounds[PlayerVoiceIndex].Play(playerRef)
                     shoutIndex = 1
                 EndIf
             Else
-                Debug.Notification("word3")
                 If(Game.IsWordUnlocked(equippedShout.GetNthWordOfPower(2)))
+                    (EquippedShoutMisc.EndLongWordMisc as USE_Word_MiscObjectScript).WordSounds[PlayerVoiceIndex].Play(playerRef)
                     shoutIndex = 2
                 Else
+                    (EquippedShoutMisc.EndShortWordMisc as USE_Word_MiscObjectScript).WordSounds[PlayerVoiceIndex].Play(playerRef)
                     shoutIndex = 1
                 EndIf
             EndIf
@@ -107,8 +149,12 @@ Event OnSpellCast(Form akSpell)
     EndIf
 EndEvent
 
-Event OnUpdate()
-    ShoutingTime += 0.5
+Event OnUpdate()    
+    ShoutingTime += 0.25
+    If(Game.IsWordUnlocked(equippedShout.GetNthWordOfPower(1)) && ShoutingTime >= SecondWordThreshold && !FirstShoutWordPlayed && IsShouting)
+        (EquippedShoutMisc.StartShortWordMisc as USE_Word_MiscObjectScript).WordSounds[PlayerVoiceIndex].Play(Game.GetPlayer())
+        FirstShoutWordPlayed = True
+    EndIf
 EndEvent
 
 Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
@@ -122,6 +168,16 @@ Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
                 ShoutControllerCode = Input.GetMappedKey("Shout", 0x2)
                 RegisterForKey(ShoutControllerCode)
                 Game.GetPlayer().UnequipShout(equippedShout)
+
+                Int i = 0
+                While(i < USE_ShoutMiscList.GetSize())
+                    USE_Shout_MiscObjectScript tmpMisc = USE_ShoutMiscList.GetAt(i) as USE_Shout_MiscObjectScript
+                    If(tmpMisc.TargetShout == equippedShout)
+                        EquippedShoutMisc = tmpMisc
+                        i = USE_ShoutMiscList.GetSize()
+                    EndIf
+                    i += 1
+                EndWhile
             Else
                 UnregisterForKey(ShoutKeyCode)
                 UnregisterForKey(ShoutControllerCode)
@@ -139,6 +195,7 @@ Event OnKeyDown(int keyCode)
         If((keyCode == ShoutKeyCode || keyCode == ShoutControllerCode) && !IsShouting)
             If(!Utility.IsInMenuMode() && !playerRef.GetVoiceRecoveryTime())
                 IsShouting = True
+                FirstShoutWordPlayed = False
                 playerRef.InterruptCast()
                 LeftHandEquipment = playerRef.GetEquippedObject(0)
                 RightHandEquipment = playerRef.GetEquippedObject(1)

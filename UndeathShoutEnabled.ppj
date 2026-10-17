@@ -7,6 +7,7 @@
    <Imports>
      <Import>H:/Games/steamapps/common/Skyrim Special Edition\Data\Source/Scripts</Import>
      <Import>.\Data\Source/Scripts</Import>
+     <Import>H:/ModOrganizer/SkyrimAE/mods/Undeath - Classical Lichdom v4/Source/Scripts</Import>
    </Imports>
    <Folders>
      <Folder>.\Data\Source/Scripts</Folder>
