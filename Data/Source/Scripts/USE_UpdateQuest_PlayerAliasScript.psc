@@ -56,14 +56,12 @@ Int Function GetWordVoiceIndex()
 EndFunction
 
 Event OnInit()
-    RegisterAnims()
-    PlayerVoiceIndex = GetWordVoiceIndex()
+    Init()
 EndEvent
 
 Event OnPlayerLoadGame()
     (GetOwningQuest() as USE_UpdateQuest_UpdateQuestScript).Update()
-    RegisterAnims()
-    PlayerVoiceIndex = GetWordVoiceIndex()
+    Init()
 EndEvent
 
 Function RegisterAnims()
@@ -74,6 +72,25 @@ Function RegisterAnims()
         RegisterForAnimationEvent(GetRef(), "BeginCastLeft")
         RegisterForAnimationEvent(GetRef(), "InterruptCast")
     EndIf
+EndFunction
+
+Function Init()
+    RegisterAnims()
+    PlayerVoiceIndex = GetWordVoiceIndex()
+    HandleShout(Game.GetPlayer().GetEquippedObject(2))
+    If(Game.GetPlayer().GetRace() == NecroLichRace)
+        InitHotkeys()
+    EndIf
+EndFunction
+
+Function InitHotkeys()
+    Int i = 0
+    While(i < HotkeyedObjects.Length)
+        HotkeyedObjects[i] = Game.GetHotkeyBoundObject(i)
+        HotkeyCode[i] = Input.GetMappedKey("Hotkey" + (i + 1))
+        RegisterForKey(HotkeyCode[i])
+        i += 1
+    EndWhile
 EndFunction
 
 Function StopShouting()
@@ -139,13 +156,7 @@ Event OnSpellCast(Form akSpell)
         EndIf
         UnregisterForUpdate()
     ElseIf(LichTransform)
-        Int i = 0
-        While(i < HotkeyedObjects.Length)
-            HotkeyedObjects[i] = Game.GetHotkeyBoundObject(i)
-            HotkeyCode[i] = Input.GetMappedKey("Hotkey" + (i + 1))
-            RegisterForKey(HotkeyCode[i])
-            i += 1
-        EndWhile
+        InitHotkeys()
     EndIf
 EndEvent
 
@@ -157,7 +168,7 @@ Event OnUpdate()
     EndIf
 EndEvent
 
-Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
+Function HandleShout(Form akBaseObject)
     If(CustomAttackKeyboardShortcut != -1 && Game.GetPlayer().GetRace() == NecroLichRace)
         If(akBaseObject == Game.GetPlayer().GetEquippedObject(2))
             Shout tmp = akBaseObject as Shout
@@ -187,6 +198,10 @@ Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
         UnregisterForKey(ShoutKeyCode)
         UnregisterForKey(ShoutControllerCode)
     EndIf
+EndFunction
+
+Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
+    HandleShout(akBaseObject)
 EndEvent
 
 Event OnKeyDown(int keyCode)          
