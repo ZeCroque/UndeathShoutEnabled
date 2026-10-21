@@ -33,6 +33,7 @@ Race Property KhajiitRace Auto
 Race Property OrcRace Auto
 Quest Property NecroLichRitualQuest Auto
 Int Property PlayerVoiceIndex Auto
+Message Property USE_VoiceCooldownMessage Auto
 
 Int Function GetWordVoiceIndex()
     Int voiceIndex = -1
@@ -218,7 +219,7 @@ Event OnKeyDown(int keyCode)
                 playerRef.EquipSpell(USE_LichFormTriggerShoutSpell , 0)
                 Input.HoldKey(CustomAttackKeyboardShortcut)
             Else
-                Debug.Notification("Your Thu'um is recovering.")
+                USE_VoiceCooldownMessage.Show()     
             EndIf
         Else
             Int i = 0
