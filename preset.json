@@ -7,5 +7,9 @@
     "game": "Skyrim",
     "gamePath": "H:/Games/steamapps/common/Skyrim Special Edition",
     "mo2Path": "J:/100Install/mo2/",
-    "mo2InstanceName": "SkyrimAE"
+    "mo2InstanceName": "SkyrimAE",
+    "extraBuildDependencies": 
+    [
+        "H:/ModOrganizer/SkyrimAE/mods/Undeath - Classical Lichdom v4/Source/Scripts"
+    ]
 }
