@@ -21,7 +21,7 @@ output
 meta.ini
 Backup
 Release
-ModInfo.psc
+*ModInfo.psc
 info.xml
 po3_StartOnSave.ini
 debug
