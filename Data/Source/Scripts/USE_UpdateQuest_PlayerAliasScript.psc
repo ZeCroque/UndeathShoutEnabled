@@ -127,7 +127,7 @@ Event OnSpellCast(Form akSpell)
                 If(Game.IsWordUnlocked(equippedShout.GetNthWordOfPower(2)))
                     (EquippedShoutMisc.EndLongWordMisc as USE_Word_MiscObjectScript).WordSounds[PlayerVoiceIndex].Play(playerRef)
                     shoutIndex = 2
-                Else
+                ElseIf(Game.IsWordUnlocked(equippedShout.GetNthWordOfPower(1)))
                     (EquippedShoutMisc.EndShortWordMisc as USE_Word_MiscObjectScript).WordSounds[PlayerVoiceIndex].Play(playerRef)
                     shoutIndex = 1
                 EndIf
