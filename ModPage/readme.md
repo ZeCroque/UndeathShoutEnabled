@@ -1,48 +1,59 @@
-# UndeathShoutEnabled
+# Undeath - Shouts and Hotkeys Enabled
 
 ## Index:
 
 1. Overview
 2. Details
-3. Frequently Asked Questions
+3. Requirements
 4. Known Issues
 5. Mod content
 6. Installation
 7. Compatibility
 8. My other mods
-9. Recommended Mods
-10. Credits
-11. Tools used
-12. Licensing/Legal 
-13. Feedback
+9. Credits
+10. Tools used
+11. Licensing/Legal 
+12. Feedback
 
 ## 1. OVERVIEW
 
-_template_
+Adds shouting and hotkeys support for the lich transformation from the Undeath Classical Lichdom mod.
 
 ## 2. DETAILS
 
-_template_
+**THE AUTOMATIC INSTALL WON'T WORK AS IT, PLEASE READ CAREFULLY BEFORE REPORTING BUGS**
 
-### Supported languages
+The mod has infortunately to ensure there's a keyboard binding for the left attack action. As it's probably not the case on your setup, you will need to make sure you have no "ControlMap_Custom.txt" file in Skyrim's root directory (where the *.exe* is) when you first install the mod. Deleting it will of course reset your custom keybinds, but you can set them back right after launching the game. **DO NOT CHANGE THE LEFT ATTACK ACTION THAT IS BOUND TO "???".**  
 
-The mod is available in the following languages:
-- English
-- French
+### Shouting
 
-## 3. FREQUENTLY ASKED QUESTIONS
+Shouting wasn't possible because there's no animations and behaviour for the dragon priest skeleton. I don't have the required skills to implement that but I found a quick workaround: using an "helper spell" as a proxy for the shout. When you hit the shout button, the mod auto-equips in your left hand that helper spell and then autocasts it, thus casting the shout. 
 
-_template_
+**Important notes:**
+- The timing differs a bit from vanilla shouting.
+- If you don't release the key, you'll hear the first word being shouted alone. The rest of the shout will be spoken once you stop holding. It means, as opposed to vanilla, you can charge your shouts (if that's of any interest to you).
+- The shout will be directed where your crosshair was when you started shouting, not where it is when you release it. 
+
+### Keybinds
+
+Not much to say, it just works™. As stated below, the mod is incompatible with the [Extended Hotkey System by Vermunds](https://www.nexusmods.com/skyrimspecialedition/mods/32225).
+
+## 3. REQUIREMENTS
+
+[SKSE64](https://www.nexusmods.com/skyrimspecialedition/mods/30379)
+[Undeath Remastered](https://www.nexusmods.com/skyrimspecialedition/mods/6180)
+[Undeath - Classical Lichdom v4](https://www.nexusmods.com/skyrimspecialedition/mods/40802)
+Undeath 
 
 ## 4. KNOWN ISSUES
 
-None. Please let me know if you find any.
+If you start casting a spell right after triggering a shout, the "helper spell" can stay in your hand. Cast it and everything will be back to normal.
 
 ## 5. MOD CONTENT
 
 This mod consists of two main files : 
-- *UndeathShoutEnabled.esm* (_template_ master)
-- *UndeathShoutEnabled - Main.bsa*
+- *UndeathShoutEnabled.esp* (small master)
+- *UndeathShoutEnabled.bsa*
 
 ## 6. INSTALLATION
 
@@ -54,21 +65,24 @@ This mod consists of two main files :
 
 ## 7. COMPATIBILITY
 
-No known incompatibility. Please let me know if you find any.
+Incompatible with the [Extended Hotkey System by Vermunds](https://www.nexusmods.com/skyrimspecialedition/mods/32225)
 
 ## 8. MY OTHER MODS
 
-## 9. RECOMMENDED MODS
+- [Undeath - Alternate Lichdom Paths]()
+- [Soul Cairn Patches]()
+- [Prelude To Purgatory - Tweaks]()
 
-_template_
-
-## 10. CREDITS
+## 9. CREDITS
 
 - Thanks to Bethesda Softworks for this great game
 - Thanks to the authors of the tools listed below
 - Thanks to xtcrefugee for answering my questions about mid/small masters on the Starfield Modding Discord
+- Thanks to Revakyol for their [Shouts as Lesser Powers](https://www.nexusmods.com/skyrimspecialedition/mods/96599) mod, that gave me the idea for this mod
+- Thanks RealAntithesis for their [AH Hotkeys - Skyrim Hotkey Manager SSE](https://www.nexusmods.com/skyrimspecialedition/mods/15761) mod, that shown me how to implement an auto-cast feature
+- Thanks to DamEngineers for their [controlmap.txt - steamv1.6.1130](https://www.nexusmods.com/skyrimspecialedition/mods/106275) template
 
-## 11. TOOLS USED
+## 10. TOOLS USED
 
 - Creation Kit
 - xEdit
@@ -78,25 +92,14 @@ _template_
 - Champollion
 - Gimp & Photopea
 - Copier
+- Copilot (helped me create the data for the shout sounds)
 
-## 12. LICENSING/LEGAL
+## 11. LICENSING/LEGAL
 
 If you want to modify and/or redistribute this mod, I would like to be contacted first please. Note that it is under GPL3 licensing, thus you have the obligation to make any modification done to the original source code available somewhere publicly.
 
 You can find the source code [here](https://github.com/ZeCroque/UndeathShoutEnabled).
 
-## 13. FEEDBACK
+## 12. FEEDBACK
 
 *Found a bug or have an idea for new features? Let me know in NexusMods' comment section or on my [Discord server](https://discord.gg/K9Jk4y2tjJ)!*
-
-**Planned features:**
-_template_
-CREATIONS_FOOTER
-. FEEDBACK & MORE
-
-Found a bug or have an idea for new features? Needs more info? Go to my Discord server!
-Discord: https://discord.gg/K9Jk4y2tjJ 
-
-Want to know more about me and my other projects? Check my links!
-LinkTree: https://linktr.ee/zecroque
-CREATIONS_FOOTER_END
