@@ -45,7 +45,6 @@ Not much to say, it just works™. As stated below, the mod is incompatible with
 [SKSE64](https://www.nexusmods.com/skyrimspecialedition/mods/30379)
 [Undeath Remastered](https://www.nexusmods.com/skyrimspecialedition/mods/6180)
 [Undeath - Classical Lichdom v4](https://www.nexusmods.com/skyrimspecialedition/mods/40802)
-Undeath 
 
 ## 4. KNOWN ISSUES
 
@@ -78,6 +77,7 @@ Incompatible with the [Extended Hotkey System by Vermunds](https://www.nexusmods
 ## 9. CREDITS
 
 - Thanks to Bethesda Softworks for this great game
+- Thanks to the authors of the patched mods
 - Thanks to the authors of the tools listed below
 - Thanks to xtcrefugee for answering my questions about mid/small masters on the Starfield Modding Discord
 - Thanks to Revakyol for their [Shouts as Lesser Powers](https://www.nexusmods.com/skyrimspecialedition/mods/96599) mod, that gave me the idea for this mod
@@ -104,4 +104,4 @@ You can find the source code [here](https://github.com/ZeCroque/UndeathShoutEnab
 
 ## 12. FEEDBACK
 
-*Found a bug or have an idea for new features? Let me know in NexusMods' comment section or on my [Discord server](https://discord.gg/K9Jk4y2tjJ)!*
+*Found a bug or have an idea for new features? Let me know in the comment section!*
