@@ -68,9 +68,9 @@ Incompatible with the [Extended Hotkey System by Vermunds](https://www.nexusmods
 
 ## 8. MY OTHER MODS
 
-- [Undeath - Alternate Lichdom Paths]()
-- [Soul Cairn Patches]()
-- [Prelude To Purgatory - Tweaks]()
+- [Undeath - Alternate Lichdom Paths](https://www.nexusmods.com/skyrimspecialedition/mods/197102)
+- [Soul Cairn Patches](https://www.nexusmods.com/skyrimspecialedition/mods/197103)
+- [Prelude To Purgatory - Tweaks](https://www.nexusmods.com/skyrimspecialedition/mods/197104)
 
 ## 9. CREDITS
 
