@@ -34,6 +34,9 @@ Race Property OrcRace Auto
 Quest Property NecroLichRitualQuest Auto
 Int Property PlayerVoiceIndex Auto
 Message Property USE_VoiceCooldownMessage Auto
+Shout Property DLC2DragonAspectShout Auto
+Bool Property DragonAspectReady Auto
+Message Property USE_DragonAspectCooldownMessage Auto
 
 Int Function GetWordVoiceIndex()
     Int voiceIndex = -1
@@ -148,23 +151,36 @@ Event OnSpellCast(Form akSpell)
                 ElseIf(Game.IsWordUnlocked(equippedShout.GetNthWordOfPower(1)))
                     (EquippedShoutMisc.EndShortWordMisc as USE_Word_MiscObjectScript).WordSounds[PlayerVoiceIndex].Play(playerRef)
                     shoutIndex = 1
+                Else
+                    (EquippedShoutMisc.StartShortWordMisc as USE_Word_MiscObjectScript).WordSounds[PlayerVoiceIndex].Play(playerRef)
                 EndIf
             EndIf
             equippedShout.GetNthSpell(shoutIndex).Cast(playerRef)
             playerRef.SetVoiceRecoveryTime(equippedShout.GetNthRecoveryTime(shoutIndex)) 
 
             StopShouting()
+
+            If(equippedShout == DLC2DragonAspectShout)
+                DragonAspectReady = False
+                RegisterForSingleUpdateGameTime(24)
+            EndIf
         EndIf
         UnregisterForUpdate()
     ElseIf(LichTransform)
         InitHotkeys()
+        Utility.Wait(2) ;Added a small delay because the anim needs to be registered after the transformation is complete
+        RegisterAnims()
     EndIf
+EndEvent
+
+Event OnUpdateGameTime()
+    DragonAspectReady = True
 EndEvent
 
 Event OnUpdate()    
     ShoutingTime += 0.25
     If(Game.IsWordUnlocked(equippedShout.GetNthWordOfPower(1)) && ShoutingTime >= SecondWordThreshold && !FirstShoutWordPlayed && IsShouting)
-        (EquippedShoutMisc.StartShortWordMisc as USE_Word_MiscObjectScript).WordSounds[PlayerVoiceIndex].Play(Game.GetPlayer())
+        (EquippedShoutMisc.StartLongWordMisc as USE_Word_MiscObjectScript).WordSounds[PlayerVoiceIndex].Play(Game.GetPlayer())
         FirstShoutWordPlayed = True
     EndIf
 EndEvent
@@ -209,7 +225,7 @@ Event OnKeyDown(int keyCode)
     Actor playerRef = Game.GetPlayer()
     If(playerRef.GetRace() == NecroLichRace)
         If((keyCode == ShoutKeyCode || keyCode == ShoutControllerCode) && !IsShouting)
-            If(!Utility.IsInMenuMode() && !playerRef.GetVoiceRecoveryTime())
+            If(!Utility.IsInMenuMode() && !playerRef.GetVoiceRecoveryTime() && (equippedShout != DLC2DragonAspectShout || DragonAspectReady))
                 IsShouting = True
                 FirstShoutWordPlayed = False
                 playerRef.InterruptCast()
@@ -218,6 +234,8 @@ Event OnKeyDown(int keyCode)
                 playerRef.AddSpell(USE_LichFormTriggerShoutSpell, False)
                 playerRef.EquipSpell(USE_LichFormTriggerShoutSpell , 0)
                 Input.HoldKey(CustomAttackKeyboardShortcut)
+            ElseIf(equippedShout == DLC2DragonAspectShout && !DragonAspectReady)
+                USE_DragonAspectCooldownMessage.Show()
             Else
                 USE_VoiceCooldownMessage.Show()     
             EndIf
