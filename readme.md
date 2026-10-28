@@ -42,13 +42,15 @@ Not much to say, it just works™. As stated below, the mod is incompatible with
 
 ## 3. REQUIREMENTS
 
-[SKSE64](https://www.nexusmods.com/skyrimspecialedition/mods/30379)
-[Undeath Remastered](https://www.nexusmods.com/skyrimspecialedition/mods/6180)
-[Undeath - Classical Lichdom v4](https://www.nexusmods.com/skyrimspecialedition/mods/40802)
+- [SKSE64](https://www.nexusmods.com/skyrimspecialedition/mods/30379)
+- [Undeath Remastered](https://www.nexusmods.com/skyrimspecialedition/mods/6180)
+- [Undeath - Classical Lichdom v4](https://www.nexusmods.com/skyrimspecialedition/mods/40802)
 
 ## 4. KNOWN ISSUES
 
 If you start casting a spell right after triggering a shout, the "helper spell" can stay in your hand. Cast it and everything will be back to normal.
+
+The "Whirlwind Speed" shout is not supported because it uses a custom animation the lich skeleton lacks.
 
 ## 5. MOD CONTENT
 
@@ -70,9 +72,9 @@ Incompatible with the [Extended Hotkey System by Vermunds](https://www.nexusmods
 
 ## 8. MY OTHER MODS
 
-- [Undeath - Alternate Lichdom Paths]()
-- [Soul Cairn Patches]()
-- [Prelude To Purgatory - Tweaks]()
+- [Undeath - Alternate Lichdom Paths](https://www.nexusmods.com/skyrimspecialedition/mods/197102)
+- [Soul Cairn Patches](https://www.nexusmods.com/skyrimspecialedition/mods/197103)
+- [Prelude To Purgatory - Tweaks](https://www.nexusmods.com/skyrimspecialedition/mods/197104)
 
 ## 9. CREDITS
 
@@ -89,7 +91,6 @@ Incompatible with the [Extended Hotkey System by Vermunds](https://www.nexusmods
 - Creation Kit
 - xEdit
 - Visual Studio Code
-- xTranslator
 - Bethesda Archive Extractor
 - Champollion
 - Gimp & Photopea
