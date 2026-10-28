@@ -1,4 +1,5 @@
 [
+    "Data\\interface\\controls\\pc\\controlmap.txt",
     "Data\\Scripts\\USE_Utility_ModInfo.pex",
     "Data\\Scripts\\USE_UpdateQuest_UpdateQuestScript.pex",
     "Data\\Scripts\\USE_UpdateQuest_PlayerAliasScript.pex",
