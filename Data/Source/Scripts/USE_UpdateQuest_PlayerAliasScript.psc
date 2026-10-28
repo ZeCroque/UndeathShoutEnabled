@@ -44,17 +44,17 @@ Int Function GetWordVoiceIndex()
     If(playerRace == ArgonianRace)
         voiceIndex = 0
     ElseIf(playerRace == DarkElfRace || playerRace == HighElfRace || playerRace == WoodElfRace)
-        voiceIndex = 1
-    ElseIf(playerRace == ImperialRace || playerRace == NordRace || playerRace == RedguardRace || playerRace == BretonRace)
         voiceIndex = 2
-    ElseIf(playerRace == KhajiitRace)
-        voiceIndex = 3
-    ElseIf(playerRace == OrcRace)
+    ElseIf(playerRace == ImperialRace || playerRace == NordRace || playerRace == RedguardRace || playerRace == BretonRace)
         voiceIndex = 4
+    ElseIf(playerRace == KhajiitRace)
+        voiceIndex = 6
+    ElseIf(playerRace == OrcRace)
+        voiceIndex = 8
     EndIf
 
-    If(Game.GetPlayer().GetActorBase().GetSex() == 1)
-        voiceIndex += 5
+    If(Game.GetPlayer().GetActorBase().GetSex() == 0)
+        voiceIndex += 1
     EndIf
     Return voiceIndex
 EndFunction
