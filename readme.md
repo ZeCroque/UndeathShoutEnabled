@@ -52,6 +52,8 @@ If you start casting a spell right after triggering a shout, the "helper spell" 
 
 The "Whirlwind Speed" shout is not supported because it uses a custom animation the lich skeleton lacks.
 
+The thunder FX from "Unrelenting Force" does not play.
+
 ## 5. MOD CONTENT
 
 This mod consists of two main files : 
